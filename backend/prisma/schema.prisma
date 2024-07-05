@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SexEnum {
+  MALE
+  FEMALE
+}
+
+enum StatusEnum {
+  Screening
+  Enrolled
+  Failed
+}
+
+model Subjects {
+  id             String    @id @db.VarChar(255) @unique
+  subject_name   String    @db.VarChar(255)
+  sex            SexEnum
+  diagnosis_at   DateTime  @db.Timestamp(6)
+  subject_status StatusEnum
+  created_at     DateTime  @db.Timestamp(6)
+  updated_at     DateTime? @db.Timestamp(6)
+}

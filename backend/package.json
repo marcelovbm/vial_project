@@ -1,0 +1,42 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/src/infrastructure/index.js",
+    "dev": "nodemon src/infrastructure/index.ts",
+    "test": "jest",
+    "start:compose": "prisma migrate deploy && npm run start"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^5.16.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "joi": "^17.13.3",
+    "pg": "^8.12.0",
+    "pg-cursor": "^2.11.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.6.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/joi": "^17.2.3",
+    "@types/node": "^20.14.9",
+    "@types/pg": "^8.11.6",
+    "eslint": "^9.6.0",
+    "globals": "^15.7.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "prisma": "^5.16.1",
+    "ts-jest": "^29.1.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2"
+  }
+}
