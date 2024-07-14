@@ -5,34 +5,36 @@ import { notifications } from '@mantine/notifications';
 import CreateSubjectComponent from './CreateSubjectComponent';
 
 type Pagination = {
-    currentPage: number;
-    perPage: number;
-    total: number;
-    data: Subject[];
+  currentPage: number;
+  perPage: number;
+  total: number;
+  data: Subject[];
 }
 
 type Subject = {
-id: string, 
-name: string,
-sex: string,
-diagnosisAt: string,
-status: string
+  id: string, 
+  name: string,
+  sex: string,
+  diagnosisAt: string,
+  status: string
 }
 
 export default function TableComponent() {
 
+    console.log("Rederizado")
+    
     const [activePage, setPage] = useState(1);
     const [subjects, setSubjects] = useState<Pagination>();
     const [subjectNames, setSubjectNames] = useState();
     const [searchName, setSearchName] = useState<string>();
   
-    const getAllSubjects = () => fetch(`http://localhost:3000/subject?currentPage=${activePage}&take=10`, { method: 'GET'})
+    const getAllSubjects = (pageNumber: number) => fetch(`http://localhost:3000/subject?currentPage=${pageNumber}&take=10`, { method: 'GET'})
     .then(response => response.json())
     .then(data => setSubjects(data))
     .catch((error) => console.log(error));
 
     useEffect(() => {
-      getAllSubjects();
+      getAllSubjects(activePage);
       getAllSubjectsName();
     }, [activePage])
 
@@ -58,13 +60,13 @@ export default function TableComponent() {
     }
 
     const clearSearchBar = () => {
-      getAllSubjects();
+      getAllSubjects(activePage);
       setSearchName('');
     }
 
     const searchByNameHandler = (name: string) => {
       setSearchName(name);
-      fetch(`http://localhost:3000/subject?currentPage=${activePage}&take=10&name=${name}`, { method: 'GET'})
+      fetch(`http://localhost:3000/subject?currentPage=1&take=10&name=${name}`, { method: 'GET'})
       .then(response => response.json())
       .then(data => setSubjects(data))
       .catch((error) => console.log(error));
@@ -104,7 +106,6 @@ export default function TableComponent() {
               <Table.Th>Sex</Table.Th>
               <Table.Th>Diagnosis</Table.Th>
               <Table.Th>Status</Table.Th>
-              <Table.Th/>
               <Table.Th/>
             </Table.Tr>
           </Table.Thead>
